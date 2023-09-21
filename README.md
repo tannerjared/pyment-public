@@ -85,17 +85,20 @@ A full example which downloads the IXI dataset and preprocesses it can be found 
 Estimating brain age using the trained brain age model from the paper consists of downloading the weights, instantiating the model with said weights, and calling [Model.fit()](https://www.tensorflow.org/api_docs/python/tf/keras/Model#predict) with an appropriate generator.
 
 #If needed, build the Singularity container
-```singularity build pyment.sif docker://estenhl/sfcn-reg-predict-brain-age
+```
+singularity build pyment.sif docker://estenhl/sfcn-reg-predict-brain-age
 ```
 #Run the prediction in Singularity
-```singularity run \
+```
+singularity run \
   --cleanenv \
   --bind /path/to/preprocessed_images:/images \
   --bind /path/to/pyment_predictions:/predictions \
   pyment.sif
 ```
 #Run the prediction in Docker
-```docker run \
+```
+docker run \
       --rm \
       --name predict-brain-age \
       --mount type=bind,source=/path/to/preprocessed_images,target=/images \
