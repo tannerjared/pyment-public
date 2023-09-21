@@ -42,6 +42,43 @@ Before training the models all images were ran through the following preprocessi
 4. Register to MNI space with ```flirt -dof 6``` (FSL, linear registration), and the standard FSL template ```MNI152_T1_1mm_brain.nii.gz```
 5. Crop away borders of ```[6:173,2:214,0:160]```
 
+To crop borders, you can use the following code:
+
+#In a Bash terminal
+pip install nibabel
+cd /directory/where/images/to/crop/are
+python
+
+#Within Python
+import nibabel as nib
+import numpy as np
+
+# Load the NIfTI image
+image_path = "your_mri_image.nii.gz"  # Replace with your image path
+img = nib.load(image_path)
+
+# Get the NIfTI image data as a NumPy array
+img_data = img.get_fdata()
+
+# Define the cropping coordinates (xmin, xmax, ymin, ymax, zmin, zmax)
+# Replace these values with the desired cropping range
+xmin, xmax = 10, 90  # Example: Crop in the x-axis from voxel 10 to 90
+ymin, ymax = 20, 120  # Example: Crop in the y-axis from voxel 20 to 120
+zmin, zmax = 0, 80  # Example: Crop in the z-axis from voxel 0 to 80
+
+# Crop the image data
+cropped_data = img_data[xmin:xmax, ymin:ymax, zmin:zmax]
+
+# Create a new NIfTI image with the cropped data
+cropped_img = nib.Nifti1Image(cropped_data, img.affine)
+
+# Save the cropped NIfTI image to a new file
+output_path = "cropped_mri_image.nii.gz"  # Replace with your output path
+nib.save(cropped_img, output_path)
+
+print(f"Cropped image saved to {output_path}")
+exit()
+
 A full example which downloads the IXI dataset and preprocesses it can be found in the [Preprocessing tutorial](https://github.com/estenhl/pyment-public/blob/main/notebooks/Download%20and%20preprocess%20IXI.ipynb)
 
 # Estimating brain age in Python
