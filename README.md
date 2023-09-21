@@ -77,7 +77,7 @@ output_path = "cropped_mri_image.nii.gz"  # Replace with your output path
 nib.save(cropped_img, output_path)
 
 print(f"Cropped image saved to {output_path}")
-exit()```
+exit()
 
 A full example which downloads the IXI dataset and preprocesses it can be found in the [Preprocessing tutorial](https://github.com/estenhl/pyment-public/blob/main/notebooks/Download%20and%20preprocess%20IXI.ipynb)
 
