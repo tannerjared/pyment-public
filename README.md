@@ -82,6 +82,27 @@ exit()
 A full example which downloads the IXI dataset and preprocesses it can be found in the [Preprocessing tutorial](https://github.com/estenhl/pyment-public/blob/main/notebooks/Download%20and%20preprocess%20IXI.ipynb)
 
 # Estimating brain age in Python
-Estimating brain age using the trained brain age model from the paper consists of downloading the weights, instantiating the model with said weights, and calling [Model.fit()](https://www.tensorflow.org/api_docs/python/tf/keras/Model#predict) with an appropriate generator. A full tutorial (which relies on having a prepared dataset) can be found in the [Python prediction tutorial](https://github.com/estenhl/pyment-public/blob/main/notebooks/Encode%20dataset%20as%20feature%20vectors.ipynb)
+Estimating brain age using the trained brain age model from the paper consists of downloading the weights, instantiating the model with said weights, and calling [Model.fit()](https://www.tensorflow.org/api_docs/python/tf/keras/Model#predict) with an appropriate generator.
+
+#If needed, build the Singularity container
+```singularity build pyment.sif docker://estenhl/sfcn-reg-predict-brain-age
+```
+#Run the prediction in Singularity
+```singularity run \
+  --cleanenv \
+  --bind /path/to/preprocessed_images:/images \
+  --bind /path/to/pyment_predictions:/predictions \
+  pyment.sif
+```
+#Run the prediction in Docker
+```docker run \
+      --rm \
+      --name predict-brain-age \
+      --mount type=bind,source=/path/to/preprocessed_images,target=/images \
+      --mount type=bind,source=/path/to/pyment_predictions,target=/predictions \
+      estenhl/sfcn-reg-predict-brain-age
+```
+
+A full tutorial (which relies on having a prepared dataset) can be found in the [Python prediction tutorial](https://github.com/estenhl/pyment-public/blob/main/notebooks/Encode%20dataset%20as%20feature%20vectors.ipynb)
 
 Instructions for downloading, building and using our docker containers for brain age predictions can be found in the [docker](https://github.com/estenhl/pyment-public/tree/main/docker)-folder
