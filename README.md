@@ -62,9 +62,9 @@ img_data = img.get_fdata()
 
 # Define the cropping coordinates (xmin, xmax, ymin, ymax, zmin, zmax)
 # Replace these values with the desired cropping range
-xmin, xmax = 10, 90  # Example: Crop in the x-axis from voxel 10 to 90
-ymin, ymax = 20, 120  # Example: Crop in the y-axis from voxel 20 to 120
-zmin, zmax = 0, 80  # Example: Crop in the z-axis from voxel 0 to 80
+xmin, xmax = 6, 173  # Example: Crop in the x-axis from voxel 10 to 90
+ymin, ymax = 2, 214  # Example: Crop in the y-axis from voxel 20 to 120
+zmin, zmax = 0, 160  # Example: Crop in the z-axis from voxel 0 to 80
 
 # Crop the image data
 cropped_data = img_data[xmin:xmax, ymin:ymax, zmin:zmax]
