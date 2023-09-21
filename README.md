@@ -36,10 +36,10 @@ where ```labels.csv``` is a csv-file with column ```id``` (corresponding to imag
 ## Preprocessing
 Before training the models all images were ran through the following preprocessing pipeline:
 
-1. Extract brainmask with ```recon-all -autorecon1``` (FreeSurfer)
-2. Transform to *.nii.gz with ```mri_convert``` (FreeSurfer)
-3. Translate to FSL space with ```fslreorient2std``` (FSL)
-4. Register to MNI space with ```flirt -dof 6``` (FSL, linear registration), and the standard FSL template ```MNI152_T1_1mm_brain.nii.gz```
+1. Extract brainmask with ```recon-all -s {ID} -i {T1} -o {ID} -all``` (FreeSurfer) #Can instead run --autorecon1
+2. Transform to *.nii.gz with ```mri_convert $SUBJECTS_DIR/{ID}/mri/brain.mgz /tmp_processing_dir/{ID}_brain.nii.gz``` (FreeSurfer)
+3. Translate to FSL space with ```fslreorient2std /tmp_processing_dir/{ID}_brain.nii.gz /tmp_processing_dir/{ID}_brain2std.nii.gz``` (FSL)
+4. Register to MNI space with ```flirt -in /tmp_processing_dir/{ID}_brain2std.nii.gz -ref $FSLDIR/data/standard/MNI152_T1_1mm_brain.nii.gz -out /tmp_processing_dir/{ID}_brain2mni.nii.gz -omat /tmp_processing_dir/{ID}_brain2mni.mat -dof 6``` (FSL, rigid body registration), and the standard FSL template ```MNI152_T1_1mm_brain.nii.gz```
 5. Crop away borders of ```[6:173,2:214,0:160]```
 
 To crop borders, you can use the following code:
