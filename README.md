@@ -42,7 +42,7 @@ Before training the models all images were ran through the following preprocessi
 4. Register to MNI space with ```flirt -in /tmp_processing_dir/{ID}_brain2std.nii.gz -ref $FSLDIR/data/standard/MNI152_T1_1mm_brain.nii.gz -out /tmp_processing_dir/{ID}_brain2mni.nii.gz -omat /tmp_processing_dir/{ID}_brain2mni.mat -dof 6``` (FSL, rigid body registration), and the standard FSL template ```MNI152_T1_1mm_brain.nii.gz```
 5. Crop away borders of ```[6:173,2:214,0:160]```
 
-To crop borders, you can use the following code:
+To crop borders, you can use the following code (Python script also available in scripts: nifti_crop.py):
 
 ```#In a Bash terminal
 pip install nibabel
