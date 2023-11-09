@@ -88,9 +88,9 @@ Estimating brain age using the trained brain age model from the paper consists o
 ```
 singularity build pyment.sif docker://estenhl/sfcn-reg-predict-brain-age
 ```
-#Run the prediction in Singularity
+#Run the prediction in Apptainer
 ```
-singularity run \
+apptainer run \
   --cleanenv \
   --bind /path/to/preprocessed_images:/images \
   --bind /path/to/pyment_predictions:/predictions \
