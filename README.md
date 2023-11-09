@@ -42,7 +42,7 @@ Before training the models all images were ran through the following preprocessi
 4. Register to MNI space with ```flirt -in /tmp_processing_dir/{ID}_brain2std.nii.gz -ref $FSLDIR/data/standard/MNI152_T1_1mm_brain.nii.gz -out /tmp_processing_dir/{ID}_brain2mni.nii.gz -omat /tmp_processing_dir/{ID}_brain2mni.mat -dof 6``` (FSL, rigid body registration), and the standard FSL template ```MNI152_T1_1mm_brain.nii.gz```
 5. Crop away borders of ```[6:173,2:214,0:160]```
 
-To crop borders, you can use the following code (Python script also available in scripts: nifti_crop.py):
+To crop borders, you can use the following code (Python script also available in scripts: nifti_crop.py). There is aslo a python script called nifti_crop_batch.py that can be run on an entire directory of files (steps 1-4 completed above):
 
 ```#In a Bash terminal
 pip install nibabel
@@ -62,9 +62,9 @@ img_data = img.get_fdata()
 
 # Define the cropping coordinates (xmin, xmax, ymin, ymax, zmin, zmax)
 # Replace these values with the desired cropping range
-xmin, xmax = 6, 173  # Example: Crop in the x-axis from voxel 10 to 90
-ymin, ymax = 2, 214  # Example: Crop in the y-axis from voxel 20 to 120
-zmin, zmax = 0, 160  # Example: Crop in the z-axis from voxel 0 to 80
+xmin, xmax = 6, 173  # Example: Crop in the x-axis from voxel 6 to 173
+ymin, ymax = 2, 214  # Example: Crop in the y-axis from voxel 2 to 214
+zmin, zmax = 0, 160  # Example: Crop in the z-axis from voxel 0 to 160
 
 # Crop the image data
 cropped_data = img_data[xmin:xmax, ymin:ymax, zmin:zmax]
